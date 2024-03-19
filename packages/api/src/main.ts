@@ -1,19 +1,39 @@
 import express from "express";
 import cors from "cors";
 
+import config from "./utils/config";
+import dbRouter from "./routes/dbRouter";
+import countryRouter from "./routes/countryRouter";
+import dbService from "./services/dbService";
 
-
-const PORT: number = 5000;
 
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 
-app.get("/", (_req, res) => {
-    res.json({"message": "Working :)"});
+// kill the app if database is not correctly opened
+(async () => {
+    const db = await dbService.openDb(config.DB_PATH);
+    if (!db) {
+        console.error("No db gotten, exiting...");
+        process.exit(1);
+    }
+    console.info("Database opened...");
+    app.locals.db = db
+})();
+
+
+app.use("/api/countries", countryRouter);
+app.use("/db", dbRouter);
+
+
+
+app.get("/ping", (_req, res) => {
+    res.json({"message": "pong"});
 });
 
-app.listen(PORT, () => {
-    console.info("Server running on port", PORT);
+app.listen(config.PORT, () => {
+    console.info("Server running on port", config.PORT);
 });
