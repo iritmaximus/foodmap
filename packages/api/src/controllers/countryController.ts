@@ -1,4 +1,12 @@
-const getAll = () => {
+import { Database } from "sqlite";
+
+const getAll = async (db: Database) => {
+    const sql = "SELECT * FROM country";
+    const result = await db.all(sql);
+    if (result) {
+        console.info("Response:", result);
+        return result;
+    }
     return;
 }
 
@@ -12,4 +20,8 @@ const add = (country: string) => {
 
 const remove = (id: string) => {
     return id;
+}
+
+export default {
+    getAll
 }
