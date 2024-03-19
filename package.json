@@ -4,7 +4,6 @@
   "main": "index.js",
   "author": "Aaro Koivukangas <aaro.koivukangas@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "typescript": "^5.4.2"
-  }
+  "private": true,
+  "workspaces": ["packages/*"]
 }
