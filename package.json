@@ -5,5 +5,8 @@
   "author": "Aaro Koivukangas <aaro.koivukangas@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.1.1"
 }
