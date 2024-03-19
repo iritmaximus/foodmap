@@ -4,6 +4,11 @@
   "main": "index.js",
   "author": "Aaro Koivukangas <aaro.koivukangas@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "tsc": "yarn workspaces foreach --all run tsc",
+    "dev:api": "yarn workspace api dev",
+    "dev:ui": "yarn workspace ui dev"
+  },
   "private": true,
   "workspaces": [
     "packages/*"
