@@ -4,7 +4,7 @@ import cors from "cors";
 import config from "./utils/config";
 import dbRouter from "./routes/dbRouter";
 import countryRouter from "./routes/countryRouter";
-import dbService from "./services/dbService";
+import dbController from "./controllers/dbController";
 
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 
 // kill the app if database is not correctly opened
 (async () => {
-    const db = await dbService.openDb(config.DB_PATH);
+    const db = await dbController.openDb(config.DB_PATH);
     if (!db) {
         console.error("No db gotten, exiting...");
         process.exit(1);
