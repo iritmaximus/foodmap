@@ -5,6 +5,7 @@ import morgan from "morgan";
 import config from "./utils/config";
 import dbRouter from "./routes/dbRouter";
 import countryRouter from "./routes/countryRouter";
+import foodRouter from "./routes/foodRouter";
 import dbController from "./controllers/dbController";
 
 
@@ -28,6 +29,7 @@ app.use(morgan("tiny"));
 
 
 app.use("/api/countries", countryRouter);
+app.use("/api/foods", foodRouter);
 app.use("/db", dbRouter);
 
 
