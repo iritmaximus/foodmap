@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS food (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     description TEXT,
-    country_id INTEGER,
+    country_id INTEGER NOT NULL,
     user_id INTEGER,
     FOREIGN KEY (country_id)
         REFERENCES country (id)
