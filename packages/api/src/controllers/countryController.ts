@@ -1,15 +1,41 @@
 import { Database } from "sqlite";
 
-const getAll = async (db: Database) => {
-    const sql = `
-    SELECT c.name AS 'country', f.name AS 'food', f.description 
+import { ICountry } from "common";
+
+
+const parseCountryResponse = (response: unknown[]): ICountry[] | undefined => {
+    const countries: ICountry[] = [];
+    for (const item of response) {
+        if (
+            typeof item === "object" && item !== null &&
+            "id" in item &&
+            "name" in item &&
+            typeof item.id === "number" &&
+            typeof item.name === "string"
+        ) {
+            countries.push(item as ICountry);
+            continue;
+        }
+        console.warn("Incorrect response, cannot parse response", response);
+        return;
+    }
+
+    return countries;
+}
+
+const getAll = async (db: Database): Promise<ICountry[] | undefined> => {
+    const sql = `SELECT 
+    c.name, c.id, COUNT(f.id) as food_count
     FROM country AS c
-    FULL JOIN food AS f ON f.country_id=c.id`;
+    JOIN food AS f ON c.id=f.country_id
+    GROUP BY c.id`;
 
     const result = await db.all(sql);
     if (result) {
-        console.info("Response:", result);
-        return result;
+        const countries = parseCountryResponse(result);
+        if (countries) {
+            return countries;
+        }
     }
     return;
 }
