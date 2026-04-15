@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import express from "express"
 import cors from "cors"
 
@@ -14,7 +15,6 @@ app.get("/", (_req, res) => {
 })
 
 app.get("/recipes", (_req, res) => {
-  console.log("Got request")
   return res.status(200).json({ "recipes": ["Salad", "Burgers", "Falafel"] })
 })
 
